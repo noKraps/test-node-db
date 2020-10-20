@@ -18,7 +18,6 @@ services:
   node-db:
     container_name: node-db
     build: ./
-     restart: always
     environment:
       RMQ_USERNAME: guest
       RMQ_PASSWORD: changeme
@@ -27,6 +26,8 @@ services:
       - rabbitmq
     volumes:
     - ./bin/:/usr/src/app/bin
+    ports:
+      - 9229:9229
 
   client:
     container_name: client
