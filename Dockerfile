@@ -13,5 +13,4 @@ RUN npm install
 # Bundle app source
 COPY . .
 EXPOSE 9229
-CMD [ "node", "--inspect=0.0.0.0:9229", "--inspect-brk", "index.js" ]
-# CMD [ "node", "index.js" ]
+CMD [ "node", "index.js" ]
