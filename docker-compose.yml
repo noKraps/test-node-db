@@ -1,0 +1,45 @@
+version: '3.6'
+
+services:
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:3-management-alpine
+    restart: always
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    ports:
+      - 15672:15672
+      - 5672:5672
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: changeme
+      RABBITMQ_DEFAULT_VHOST: /
+
+  node-db:
+    container_name: node-db
+    build: ./
+     restart: always
+    environment:
+      RMQ_USERNAME: guest
+      RMQ_PASSWORD: changeme
+      RMQ_HOST: rabbitmq
+    links:
+      - rabbitmq
+    volumes:
+    - ./bin/:/usr/src/app/bin
+
+  client:
+    container_name: client
+    build:
+      context: ./
+      dockerfile: Dockerfile_client
+    restart: always
+    environment:
+      RMQ_USERNAME: guest
+      RMQ_PASSWORD: changeme
+      RMQ_HOST: rabbitmq
+    links:
+      - rabbitmq
+
+volumes:
+  rabbitmq_data:
