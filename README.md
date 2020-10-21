@@ -22,14 +22,21 @@ Payload         {"key": "foo", "value": "bar"}
 ### Delete
 ```
 Exchange	node-db.income
-Routing Key	get
+Routing Key	delete
 Payload         {"key": "foo"}
 ```
 
 ### Clear
 ```
 Exchange	node-db.income
-Routing Key	get
+Routing Key	clear
+Payload         none
+```
+
+### Response queue
+```
+Exchange	node-db.outcome
+Routing Key	response
 Payload         none
 ```
 
